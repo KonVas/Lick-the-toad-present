@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>BeastFeast 🐸 Presentation 🔊 </title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown="slides/presentation.md"
+						 data-separator="^\n\n\n"
+						 data-separator-vertical="^\n\n"
+						 data-separator-notes="^Note:"
+						 data-charset="iso-8859-15">
+					<!--
+						Note that Windows uses `\r\n` instead of `\n` as its linefeed character.
+						For a regex that supports all operating systems, use `\r?\n` instead of `\n`.
+					  -->
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/zoom/zoom.js", async:true ></script>
+		<script src="plugin/tts_min/tts_min_reveal.js", async:false></script>
+
+		<script>
+			
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				autoPlayMedia: true,
+				hash: true,
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+				markdown: {
+					smartypants: true
+				}
+			});
+
+			Reveal.addEventListener( 'ready', function( event ) {
+				//  Add this if you want to read the opening slide.
+				//  Other eventlisteners defined in tts_min_reveal.js handle slidechanged and fragmentshown events
+				var thisSlide = Reveal.getCurrentSlide();
+				if (tts.On) {
+					// Read the innerText for the listed elements of current slide after waiting 1 second to allow transitions to conclude.
+					//setTimeout(function(){tts.ReadVisElmts(thisSlide,"h1","h2","h3","p","li");}, 1000);
+					// Read the textContent for the listed elements of the current slide, even hidden ones, after 1 second. In this case the notes class.
+					if (tts.readNotes) setTimeout(function(){tts.ReadAnyElmts(thisSlide,"notes");}, 1000);
+				}
+			});
+
+			Reveal.configure({
+				logo: true,
+				slideNumber: true,
+				backgroundTransition: 'zoom',
+				keyboard: {
+					81: function() {tts.Synth.cancel()}, // press q to cancel speaking and clear speech queue.
+					84: function() {tts.ToggleSpeech()}  // press t to toggle speech on/off
+				}
+			});
+</script>
+</body>
+</html>
